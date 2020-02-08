@@ -1,0 +1,39 @@
+1. There's no need to create instances of NewsAdapter and RecyclerView because we can call id of RecyclerView directly. 
+
+var jsonString : String? = null
+lateinit var recyclerView: RecyclerView
+lateinit var myAdapter: NewsAdapter
+override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        recyclerView = findViewById(R.id.newsRecyclerView)
+        myAdapter = NewsAdapter()
+        with(recyclerView) {
+            adapter = myAdapter
+            layoutManager = LinearLayoutManager(this@MyNewsActivity)
+        }
+    }
+
+ var jsonString : String? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        with(newsRecyclerView) {
+            adapter = NewsAdapter()
+            layoutManager = LinearLayoutManager(this@MyNewsActivity)
+        }
+    }
+
+2.For better understanding and maintaining it's a good approach to create a separate file for RecyclerView.
+
+3. String   newsItems.add(News(title = title, imageURL = imageURL, resourceName = resourceName, resourceURL = resourceURL, newsLink = newsLink)) could be reduced to newsItems.add(News(title, imageURL, resourceName, resourceURL, newsLink))
+
+4. I added the Dagger library in order to provide instances for future libraries.
+
+5. I added the Rxjava library to retrieve info from the asset file. In the future, it could be replaced with Retrofit or OkHttp call to get real information from the server.
+
+6.Instead of using default load image which was already presented I decided to Picasso library.I found the library very powerful and suitable.
+
+7.Also I decided to use DataBinding supported by Google team because it's a modern and easy approach in Android development.It simplifies a lot of work.
+
+8.I decided to use MVVM pattern with ViewModel class as it's assigning chain.
